@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="player.js"></script>
+<script type="text/javascript" src="enemies.js"></script>
+<script>
+var cWidth = 640;
+var cHeight = 480;
+
+var pHeight = 20;
+var pWidth = 20;
+var p = new player((cWidth / 2) - (pWidth / 2), cHeight - pHeight, 20, 20, 5);
+
+var e = new enemy(0, 0, 20, 20);
+
+var keys = new Array();
+var run;
+
+
+$(document).ready(function() {
+	run = window.setInterval(animate, 1000 / 60);
+	var canvas = document.getElementById("c");
+	canvas.width = cWidth;
+	canvas.height = cHeight;
+	
+	$(document).keydown(keyDown);
+	$(document).keyup(keyUp);
+});
+
+function keyDown(e) {
+	keys[e.which] = true;
+	if(keys[68] && p.x < cWidth - p.height)
+		p.moveRight();
+	 if(keys[65] && p.x > 0)
+		p.moveLeft();
+	if(keys[32] && p.shots.length < p.maxShots) {
+		p.fire();
+	}
+}
+
+function keyUp(e) {
+	delete keys[e.which];
+}
+
+function animate() {
+	var canvas = document.getElementById("c");
+	var ctx = canvas.getContext("2d");
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	
+	p.draw(ctx);
+	e.draw(ctx, p);
+	$("#p").html(p.score);
+}
+</script>
+</head>
+
+<body>
+<p id="p">0</p>
+<canvas id="c"  style="border: solid 1px grey;"/>
+</body>
+</html>
