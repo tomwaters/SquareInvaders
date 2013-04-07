@@ -7,7 +7,7 @@ function enemies() {
 
 enemies.prototype.init = function() {
 	this.e = new Array();
-	this.y = 0;
+	this.y = this.h + 4;
 	this.dir = "r";
 	this.pauseFrames = 30;
 	

@@ -14,6 +14,10 @@ function player(x, y, width, height, maxShots) {
 
 player.prototype.draw = function(ctx) {
 	if(this.state == "alive") {
+		ctx.font = "12px Verdana";
+		ctx.fillStyle = "black";
+		ctx.fillText("SCORE: " + this.score, 2, 12);
+		
 		ctx.fillStyle = "green";
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 	
@@ -32,19 +36,15 @@ player.prototype.draw = function(ctx) {
 		ctx.fillStyle = "red";
 		ctx.fillRect(this.x, this.y, this.width, this.height);
 		this.deadFrames = this.deadFrames - 1;
-	} else {
-		ctx.font = "50px Verdana";
-		ctx.fillStyle = "red";
-		ctx.fillText("Game Over!", (ctx.canvas.width / 2) - 150, ctx.canvas.height / 2);
 	}
 }
 
 player.prototype.fire = function() {
-	if(this.state == "alive") {
+	if(this.state == "alive" && this.shots.length < this.maxShots) {
 		var s = new Object();
 		s.x = this.x + (this.width / 2);
 		s.y = this.y - this.height;
-		p.shots.push(s);
+		this.shots.push(s);
 	}
 }
 
