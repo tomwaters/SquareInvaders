@@ -1,0 +1,8 @@
+CACHE MANIFEST
+# Square Invaders 20130408
+
+CACHE:
+index.html
+main.js
+player.js
+enemies.js
